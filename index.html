@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Grapita Design — Gracia Tejada</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0D0D14;--bg2:#12121C;--bg3:#1A1A28;
+  --lavender:#C9B8FF;--peach:#FFCBA4;--rose:#FF8FAB;
+  --text:#F0EEF8;--text-muted:#8A8A9A;--border:rgba(201,184,255,0.12);
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(201,184,255,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(201,184,255,0.03) 1px,transparent 1px);
+  background-size:48px 48px;pointer-events:none;z-index:0;
+}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 60px;
+  background:linear-gradient(180deg,rgba(13,13,20,0.95) 0%,transparent 100%);
+  backdrop-filter:blur(8px);
+}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.1rem;letter-spacing:0.05em;color:var(--lavender);}
+.nav-right{display:flex;align-items:center;gap:36px;}
+.nav-links{display:flex;gap:36px;}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:0.82rem;font-weight:500;
+  letter-spacing:0.08em;text-transform:uppercase;transition:color 0.3s;}
+.nav-links a:hover{color:var(--lavender);}
+
+/* LANG SWITCH */
+.lang-switch{
+  display:flex;align-items:center;gap:2px;
+  background:rgba(255,255,255,0.04);border:1px solid var(--border);
+  border-radius:100px;padding:4px;
+}
+.lang-btn{
+  border:none;background:transparent;cursor:pointer;
+  padding:6px 14px;border-radius:100px;font-family:'DM Sans',sans-serif;
+  font-size:0.75rem;font-weight:600;letter-spacing:0.05em;
+  color:var(--text-muted);transition:all 0.3s;
+}
+.lang-btn.active{background:var(--lavender);color:#0D0D14;}
+
+#hero{min-height:100vh;display:flex;align-items:center;padding:120px 60px 80px;position:relative;overflow:hidden;}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;width:100%;max-width:1200px;margin:0 auto;}
+.hero-label{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(201,184,255,0.08);border:1px solid var(--border);
+  border-radius:100px;padding:6px 16px;font-size:0.75rem;
+  color:var(--lavender);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:24px;
+}
+.hero-label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--lavender);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,6vw,5.5rem);line-height:1.05;font-weight:900;margin-bottom:16px;}
+.hero-title em{font-style:italic;color:var(--lavender);}
+.hero-title .accent{color:var(--peach);}
+.hero-sub{font-size:1.05rem;color:var(--text-muted);line-height:1.7;max-width:460px;margin-bottom:40px;}
+.hero-sub strong{color:var(--text);}
+.hero-tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:44px;}
+.tag{background:rgba(255,203,164,0.08);border:1px solid rgba(255,203,164,0.2);border-radius:100px;padding:6px 14px;font-size:0.78rem;color:var(--peach);}
+.hero-cta{display:flex;gap:16px;align-items:center;}
+.btn-primary{
+  background:var(--lavender);color:#0D0D14;padding:14px 32px;border-radius:100px;
+  font-weight:600;font-size:0.88rem;text-decoration:none;letter-spacing:0.04em;
+  transition:all 0.3s;border:none;cursor:pointer;display:inline-block;
+}
+.btn-primary:hover{background:var(--peach);transform:translateY(-2px);}
+.btn-ghost{
+  color:var(--text-muted);padding:14px 24px;border-radius:100px;text-decoration:none;
+  font-size:0.88rem;letter-spacing:0.04em;border:1px solid var(--border);
+  transition:all 0.3s;display:inline-block;
+}
+.btn-ghost:hover{color:var(--text);border-color:var(--lavender);}
+.hero-visual{position:relative;display:flex;justify-content:center;align-items:flex-end;}
+.hero-photo-wrap{position:relative;}
+.hero-photo{width:380px;height:480px;object-fit:cover;object-position:top;display:block;border-radius:2px;}
+.hero-badge{
+  position:absolute;bottom:30px;right:-30px;
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:16px;padding:16px 20px;min-width:170px;
+}
+.hero-badge-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--lavender);}
+.hero-badge-text{font-size:0.75rem;color:var(--text-muted);margin-top:2px;}
+.hero-badge2{
+  position:absolute;top:40px;left:-20px;
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:100px;padding:10px 18px;font-size:0.78rem;color:var(--peach);white-space:nowrap;
+}
+.hero-deco-ring{position:absolute;bottom:-20px;right:-20px;width:200px;height:200px;border:1px solid rgba(201,184,255,0.08);border-radius:50%;}
+.hero-deco-ring2{position:absolute;bottom:-50px;right:-50px;width:280px;height:280px;border:1px solid rgba(201,184,255,0.04);border-radius:50%;}
+.scroll-hint{
+  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:var(--text-muted);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
+}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,transparent,var(--lavender));animation:scrollDown 2s infinite;}
+@keyframes scrollDown{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}100%{transform:scaleY(0);transform-origin:bottom;}}
+section{padding:120px 60px;position:relative;z-index:1;}
+.section-inner{max-width:1200px;margin:0 auto;}
+.section-label{display:inline-flex;align-items:center;gap:10px;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:20px;}
+.section-label::before{content:'';width:24px;height:1px;background:var(--lavender);}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4vw,3.8rem);font-weight:700;line-height:1.1;margin-bottom:16px;}
+.section-title em{font-style:italic;color:var(--lavender);}
+.project-num{font-family:'Playfair Display',serif;font-size:7rem;font-weight:900;color:rgba(201,184,255,0.04);position:absolute;right:60px;top:60px;line-height:1;user-select:none;}
+.divider{display:flex;align-items:center;gap:16px;padding:0 60px;position:relative;z-index:1;}
+.divider-line{flex:1;height:1px;background:var(--border);}
+.divider-dot{width:6px;height:6px;border-radius:50%;background:var(--lavender);opacity:0.4;}
+
+/* ABOUT */
+#about{background:var(--bg2);}
+.about-grid{display:grid;grid-template-columns:0.8fr 1.2fr;gap:80px;align-items:start;margin-top:60px;}
+.about-photo-wrap{position:relative;position:sticky;top:120px;}
+.about-photo-placeholder{
+  width:100%;aspect-ratio:4/5;border-radius:2px;
+  background:linear-gradient(135deg,rgba(201,184,255,0.1),rgba(255,139,171,0.08));
+  border:1px solid var(--border);display:flex;align-items:center;justify-content:center;
+  font-size:3rem;color:rgba(201,184,255,0.15);
+}
+.about-photo-tag{position:absolute;bottom:-16px;left:24px;background:var(--lavender);color:#0D0D14;padding:12px 20px;border-radius:0 12px 12px 12px;font-weight:600;font-size:0.82rem;}
+.about-location{
+  margin-top:32px;display:flex;flex-direction:column;gap:14px;
+}
+.about-meta-item{display:flex;align-items:center;gap:12px;font-size:0.85rem;color:var(--text-muted);}
+.about-meta-icon{width:32px;height:32px;border-radius:8px;background:rgba(201,184,255,0.08);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+.about-content h3{font-family:'Playfair Display',serif;font-size:1.3rem;font-style:italic;color:var(--peach);margin-bottom:18px;}
+.about-content p{color:var(--text-muted);line-height:1.85;font-size:0.96rem;margin-bottom:32px;}
+.about-content p strong{color:var(--text);}
+
+/* TIMELINE */
+.timeline{display:flex;flex-direction:column;gap:0;margin-bottom:40px;}
+.timeline-item{
+  display:grid;grid-template-columns:140px 1fr;gap:24px;
+  padding:24px 0;border-bottom:1px solid var(--border);
+}
+.timeline-item:last-child{border-bottom:none;}
+.timeline-date{font-size:0.78rem;color:var(--lavender);letter-spacing:0.04em;padding-top:2px;}
+.timeline-role{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:4px;}
+.timeline-company{font-size:0.82rem;color:var(--peach);margin-bottom:10px;}
+.timeline-desc{font-size:0.86rem;color:var(--text-muted);line-height:1.7;}
+
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.edu-card{background:rgba(201,184,255,0.05);border:1px solid var(--border);border-radius:14px;padding:20px;}
+.edu-card-date{font-size:0.72rem;color:var(--lavender);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:8px;}
+.edu-card-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:4px;}
+.edu-card-place{font-size:0.8rem;color:var(--text-muted);}
+
+/* PLANIFINZ */
+#planifinz{background:linear-gradient(180deg,var(--bg) 0%,rgba(201,184,255,0.03) 50%,var(--bg) 100%);}
+.project-tag{display:inline-block;background:rgba(201,184,255,0.08);border:1px solid var(--border);border-radius:100px;padding:4px 12px;font-size:0.72rem;color:var(--lavender);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;}
+.planifinz-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center;margin-top:60px;}
+.planifinz-desc{color:var(--text-muted);line-height:1.8;font-size:0.95rem;margin:20px 0 32px;}
+.roles-list{display:flex;flex-direction:column;gap:12px;margin-bottom:36px;}
+.role-item{display:flex;align-items:center;gap:14px;background:rgba(255,203,164,0.05);border:1px solid rgba(255,203,164,0.12);border-radius:12px;padding:12px 18px;}
+.role-icon{font-size:1.2rem;}
+.role-text h4{font-size:0.85rem;font-weight:600;color:var(--peach);}
+.role-text p{font-size:0.76rem;color:var(--text-muted);}
+.planifinz-screens{position:relative;height:520px;display:flex;align-items:center;justify-content:center;}
+.mockup-wrap{position:relative;width:100%;height:100%;}
+.mockup-main{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:220px;z-index:3;filter:drop-shadow(0 32px 60px rgba(0,0,0,0.7));border-radius:28px;overflow:hidden;}
+.mockup-main img{width:100%;display:block;border-radius:28px;}
+.mockup-side{position:absolute;width:180px;z-index:2;filter:drop-shadow(0 20px 40px rgba(0,0,0,0.5));border-radius:22px;overflow:hidden;}
+.mockup-side img{width:100%;display:block;border-radius:22px;}
+.mockup-left{top:50%;left:4%;transform:translateY(-50%) rotate(-8deg);opacity:0.65;}
+.mockup-right{top:50%;right:0%;transform:translateY(-50%) rotate(8deg);opacity:0.65;}
+
+/* BRANDING */
+#branding{background:var(--bg2);}
+.branding-intro{max-width:600px;margin-bottom:60px;}
+.branding-intro p{color:var(--text-muted);line-height:1.7;margin-top:12px;}
+.branding-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.brand-card{background:var(--bg3);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:transform 0.3s,border-color 0.3s;cursor:zoom-in;}
+.brand-card:hover{transform:translateY(-8px);border-color:rgba(201,184,255,0.3);}
+.brand-card-img{
+  aspect-ratio:4/3;background:linear-gradient(135deg,rgba(201,184,255,0.08),rgba(255,139,171,0.06));
+  display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);
+  overflow:hidden;position:relative;
+}
+.brand-card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;}
+.brand-card:hover .brand-card-img img{transform:scale(1.05);}
+.brand-placeholder{font-size:3.5rem;color:rgba(201,184,255,0.2);}
+.brand-card-body{padding:20px 24px 24px;}
+.brand-card-cat{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--lavender);margin-bottom:6px;}
+.brand-card-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin-bottom:6px;}
+.brand-card-desc{font-size:0.8rem;color:var(--text-muted);line-height:1.6;}
+
+/* ILUSTRACIONES */
+.tabs{display:flex;gap:4px;background:rgba(255,255,255,0.04);border-radius:100px;padding:4px;width:fit-content;margin:40px 0 32px;}
+.tab-btn{padding:10px 24px;border-radius:100px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;transition:all 0.3s;background:transparent;color:var(--text-muted);}
+.tab-btn.active{background:var(--lavender);color:#0D0D14;}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.gallery-item{border-radius:16px;overflow:hidden;cursor:pointer;position:relative;transition:transform 0.3s;border:1px solid var(--border);background:var(--bg3);}
+.gallery-item:hover{transform:scale(1.03);}
+.gallery-item:hover .gallery-overlay{opacity:1;}
+.gallery-item img{width:100%;height:100%;object-fit:cover;display:block;}
+.gallery-item{aspect-ratio:1;}
+.gallery-item.large{grid-column:span 2;aspect-ratio:2/1;}
+.gallery-overlay{position:absolute;inset:0;background:rgba(13,13,20,0.75);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s;}
+.gallery-overlay span{color:var(--text);font-size:0.82rem;font-weight:500;letter-spacing:0.05em;}
+
+/* LIGHTBOX */
+.lightbox{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.lightbox.open{opacity:1;pointer-events:all;}
+.lightbox-img-wrap{position:relative;max-width:80vw;max-height:88vh;display:flex;align-items:center;justify-content:center;}
+.lightbox-img-wrap img{max-width:100%;max-height:88vh;border-radius:16px;object-fit:contain;border:1px solid var(--border);}
+.lightbox-close{position:absolute;top:-16px;right:-16px;background:var(--bg3);border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1rem;transition:background 0.2s;display:flex;align-items:center;justify-content:center;}
+.lightbox-close:hover{background:rgba(201,184,255,0.15);}
+
+/* CONTACT */
+#contacto{background:var(--bg2);border-top:1px solid var(--border);}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:60px;}
+.contact-headline{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:900;line-height:1.05;margin-bottom:20px;}
+.contact-headline em{font-style:italic;color:var(--lavender);}
+.contact-sub{color:var(--text-muted);line-height:1.7;max-width:380px;margin-bottom:24px;}
+.contact-email{
+  display:inline-flex;align-items:center;gap:10px;color:var(--lavender);
+  text-decoration:none;font-size:0.92rem;font-weight:500;
+  border-bottom:1px solid rgba(201,184,255,0.3);padding-bottom:4px;transition:border-color 0.3s;
+}
+.contact-email:hover{border-color:var(--lavender);}
+.social-links{display:flex;flex-direction:column;gap:16px;}
+.social-link{display:flex;align-items:center;gap:20px;padding:20px 24px;background:var(--bg3);border:1px solid var(--border);border-radius:16px;text-decoration:none;color:var(--text);transition:all 0.3s;}
+.social-link:hover{border-color:rgba(201,184,255,0.4);transform:translateX(8px);}
+.social-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.social-icon.ig{background:rgba(255,139,171,0.12);}
+.social-icon.wa{background:rgba(100,220,100,0.1);}
+.social-icon.be{background:rgba(100,130,255,0.1);}
+.social-icon.li{background:rgba(100,160,230,0.1);}
+.social-info h4{font-size:0.9rem;font-weight:600;margin-bottom:2px;}
+.social-info p{font-size:0.78rem;color:var(--text-muted);}
+.social-arrow{margin-left:auto;color:var(--text-muted);transition:transform 0.3s,color 0.3s;}
+.social-link:hover .social-arrow{transform:translateX(6px);color:var(--lavender);}
+
+footer{padding:32px 60px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1rem;color:var(--lavender);}
+.footer-copy{font-size:0.78rem;color:var(--text-muted);}
+
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+
+/* LANG VISIBILITY */
+[data-lang="pt"]{display:none;}
+html.lang-pt [data-lang="es"]{display:none;}
+html.lang-pt [data-lang="pt"]{display:initial;}
+html.lang-pt span[data-lang="pt"],
+html.lang-pt div[data-lang="pt"],
+html.lang-pt p[data-lang="pt"],
+html.lang-pt h1[data-lang="pt"],
+html.lang-pt h2[data-lang="pt"],
+html.lang-pt h3[data-lang="pt"],
+html.lang-pt h4[data-lang="pt"]{display:block;}
+html.lang-pt a[data-lang="pt"]{display:inline-flex;}
+
+@media(max-width:900px){
+  nav{padding:16px 24px;}
+  .nav-links{display:none;}
+  section{padding:80px 24px;}
+  #hero{padding:100px 24px 60px;}
+  .hero-inner,.contact-grid{grid-template-columns:1fr;}
+  .about-grid{grid-template-columns:1fr;}
+  .about-photo-wrap{position:static;}
+  .timeline-item{grid-template-columns:1fr;gap:6px;}
+  .edu-grid{grid-template-columns:1fr;}
+  .planifinz-grid{grid-template-columns:1fr;}
+  .hero-photo{width:100%;height:340px;}
+  .branding-grid{grid-template-columns:1fr 1fr;}
+  .gallery-grid{grid-template-columns:repeat(2,1fr);}
+  .gallery-item.large{grid-column:span 1;aspect-ratio:1;}
+  .planifinz-screens{height:300px;}
+  .divider{padding:0 24px;}
+  footer{flex-direction:column;gap:12px;text-align:center;padding:24px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Grapita Design.</div>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#about" data-lang="es">Sobre mí</a>
+      <a href="#about" data-lang="pt">Sobre mim</a>
+      <a href="#planifinz">PlaniFinz</a>
+      <a href="#branding" data-lang="es">Branding</a>
+      <a href="#branding" data-lang="pt">Branding</a>
+      <a href="#ilustraciones" data-lang="es">Ilustraciones</a>
+      <a href="#ilustraciones" data-lang="pt">Ilustrações</a>
+      <a href="#contacto" data-lang="es">Contacto</a>
+      <a href="#contacto" data-lang="pt">Contato</a>
+    </div>
+    <div class="lang-switch">
+      <button class="lang-btn active" id="btn-es" onclick="setLang('es')">ES</button>
+      <button class="lang-btn" id="btn-pt" onclick="setLang('pt')">PT</button>
+    </div>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-content fade-in">
+      <div class="hero-label" data-lang="es">Disponible para proyectos</div>
+      <div class="hero-label" data-lang="pt">Disponível para projetos</div>
+      <h1 class="hero-title" data-lang="es">
+        Diseño con<br/>
+        <em>alma</em> y<br/>
+        <span class="accent">propósito.</span>
+      </h1>
+      <h1 class="hero-title" data-lang="pt">
+        Design com<br/>
+        <em>alma</em> e<br/>
+        <span class="accent">propósito.</span>
+      </h1>
+      <p class="hero-sub" data-lang="es">
+        <strong>Designer gráfica peruana</strong> con experiencia en agencias digitales, ilustración y redes sociales. Trabajo de forma independiente y colaborativa, con foco en creatividad y cumplimiento de plazos. Vengo de un background en aviación, con un perfil sólido en atención al cliente y comunicación. Actualmente resido en Brasil y estoy abierta a nuevas oportunidades.
+      </p>
+      <p class="hero-sub" data-lang="pt">
+        <strong>Designer gráfica peruana</strong> com experiência em agências digitais, ilustração e redes sociais. Atuação independente e colaborativa, com foco em criatividade e prazos. Background em aviação, com forte perfil em atendimento e comunicação. Residente no Brasil, aberta a novas oportunidades.
+      </p>
+      <div class="hero-tags">
+        <span class="tag" data-lang="es">UI/UX Design</span>
+        <span class="tag" data-lang="pt">UI/UX Design</span>
+        <span class="tag" data-lang="es">Branding</span>
+        <span class="tag" data-lang="pt">Branding</span>
+        <span class="tag" data-lang="es">Ilustración</span>
+        <span class="tag" data-lang="pt">Ilustração</span>
+        <span class="tag" data-lang="es">Dirección de Arte</span>
+        <span class="tag" data-lang="pt">Direção de Arte</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#planifinz" class="btn-primary" data-lang="es">Ver proyectos</a>
+        <a href="#planifinz" class="btn-primary" data-lang="pt">Ver projetos</a>
+        <a href="#contacto" class="btn-ghost" data-lang="es">Conversemos →</a>
+        <a href="#contacto" class="btn-ghost" data-lang="pt">Vamos conversar →</a>
+      </div>
+    </div>
+    <div class="hero-visual fade-in">
+      <div class="hero-photo-wrap">
+        <img src="images/mi-foto-perfil.png" alt="Gracia Tejada — Grapita Design" class="hero-photo"/>
+        <div class="hero-badge">
+          <div class="hero-badge-num">3+</div>
+          <div class="hero-badge-text" data-lang="es">Años de experiencia</div>
+          <div class="hero-badge-text" data-lang="pt">Anos de experiência</div>
+        </div>
+        <div class="hero-badge2">✦ Grapita Design</div>
+        <div class="hero-deco-ring"></div>
+        <div class="hero-deco-ring2"></div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span data-lang="es">Scroll</span>
+    <span data-lang="pt">Role</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="fade-in">
+        <div class="about-photo-wrap">
+          <img src="images/mi-foto-perfil.png" alt="Gracia Tejada" style="width:100%;max-width:320px;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:16px;display:block;"/>
+          <div class="about-photo-tag" data-lang="es">Diseñadora & Artista</div>
+          <div class="about-photo-tag" data-lang="pt">Designer & Artista</div>
+        </div>
+        <div class="about-location">
+          <div class="about-meta-item">
+            <span class="about-meta-icon">📍</span>
+            <span>Osasco, SP — Brasil</span>
+          </div>
+          <div class="about-meta-item">
+            <span class="about-meta-icon">✉️</span>
+            <span>graciapaz94@gmail.com</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-content fade-in">
+        <div class="section-label" data-lang="es">Sobre mí</div>
+        <div class="section-label" data-lang="pt">Sobre mim</div>
+        <h2 class="section-title" data-lang="es">Donde el <em>arte</em><br/>encuentra la estrategia</h2>
+        <h2 class="section-title" data-lang="pt">Onde a <em>arte</em><br/>encontra a estratégia</h2>
+
+        <h3 data-lang="es">"Creo con intención, diseño con emoción."</h3>
+        <h3 data-lang="pt">"Crio com intenção, desenho com emoção."</h3>
+
+        <p data-lang="es">Soy <strong>Gracia Tejada</strong>, diseñadora gráfica peruana radicada en Brasil. Tengo experiencia en agencias digitales, ilustración y gestión de redes sociales, combinando una atuación independiente y colaborativa siempre enfocada en creatividad y cumplimiento de plazos. Vengo de un background en aviación comercial, lo que me dio un perfil sólido en atención al cliente, comunicación y trabajo bajo presión — cualidades que hoy aplico en cada proyecto de diseño.</p>
+        <p data-lang="pt">Sou <strong>Gracia Tejada</strong>, designer gráfica peruana radicada no Brasil. Tenho experiência em agências digitais, ilustração e gestão de redes sociais, combinando atuação independente e colaborativa sempre focada em criatividade e prazos. Venho de um background em aviação comercial, o que me deu um perfil sólido em atendimento ao cliente, comunicação e trabalho sob pressão — qualidades que hoje aplico em cada projeto de design.</p>
+
+        <!-- TIMELINE EXPERIENCIA -->
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-date">Nov 2024 – Abr 2025</div>
+            <div>
+              <div class="timeline-role" data-lang="es">Diseñadora Gráfica</div>
+              <div class="timeline-role" data-lang="pt">Designer Gráfica</div>
+              <div class="timeline-company">Cosita Linda</div>
+              <p class="timeline-desc" data-lang="es">Diagramación de catálogos digitales, fotografía y edición de video de productos, además de creación de contenido publicitario para redes sociales.</p>
+              <p class="timeline-desc" data-lang="pt">Diagramação de catálogos digitais, fotografia e edição de vídeo de produtos, além de criação de conteúdo publicitário para redes sociais.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">Mar 2024 – Sep 2024</div>
+            <div>
+              <div class="timeline-role" data-lang="es">Diseñadora Gráfica</div>
+              <div class="timeline-role" data-lang="pt">Designer Gráfica</div>
+              <div class="timeline-company">Ideas Avenue</div>
+              <p class="timeline-desc" data-lang="es">Creación de piezas gráficas y animaciones para redes sociales, con dominio de Adobe Photoshop, Illustrator y After Effects.</p>
+              <p class="timeline-desc" data-lang="pt">Criação de peças gráficas e animações para redes sociais, com domínio de Adobe Photoshop, Illustrator e After Effects.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date" data-lang="es">2021 – Actualidad</div>
+            <div class="timeline-date" data-lang="pt">2021 – Atualidade</div>
+            <div>
+              <div class="timeline-role" data-lang="es">Diseñadora Freelancer</div>
+              <div class="timeline-role" data-lang="pt">Designer Freelancer</div>
+              <div class="timeline-company" data-lang="es">Proyectos independientes</div>
+              <div class="timeline-company" data-lang="pt">Projetos independentes</div>
+              <p class="timeline-desc" data-lang="es">Creación de ilustraciones personalizadas e identidad visual con foco en branding, gestionando proyectos de forma eficiente y autónoma.</p>
+              <p class="timeline-desc" data-lang="pt">Criação de ilustrações personalizadas e identidade visual com foco em branding, gerenciando projetos de forma eficiente e autônoma.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORMACIÓN -->
+        <h3 style="margin-top:8px;" data-lang="es">Formación académica</h3>
+        <h3 style="margin-top:8px;" data-lang="pt">Formação acadêmica</h3>
+        <div class="edu-grid" style="margin-top:20px;margin-bottom:8px;">
+          <div class="edu-card">
+            <div class="edu-card-date" data-lang="es">2021 – Actualidad</div>
+            <div class="edu-card-date" data-lang="pt">2021 – Atualidade</div>
+            <div class="edu-card-title" data-lang="es">Diseño Gráfico</div>
+            <div class="edu-card-title" data-lang="pt">Design Gráfico</div>
+            <div class="edu-card-place">Instituto San Ignacio de Loyola</div>
+          </div>
+          <div class="edu-card">
+            <div class="edu-card-date">2013 – 2019</div>
+            <div class="edu-card-title" data-lang="es">Aviación Comercial</div>
+            <div class="edu-card-title" data-lang="pt">Aviação Comercial</div>
+            <div class="edu-card-place">Columbia</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+
+<!-- PLANIFINZ -->
+<section id="planifinz">
+  <div class="section-inner" style="position:relative;">
+    <div class="project-num">01</div>
+    <div class="section-label" data-lang="es">Proyecto destacado</div>
+    <div class="section-label" data-lang="pt">Projeto em destaque</div>
+    <div class="planifinz-grid">
+      <div class="planifinz-info fade-in">
+        <span class="project-tag" data-lang="es">Fintech · App Móvil</span>
+        <span class="project-tag" data-lang="pt">Fintech · App Móvel</span>
+        <h2 class="section-title">Plani<em>Finz</em></h2>
+        <p class="planifinz-desc" data-lang="es">App financiera diseñada para simplificar la gestión del dinero. Como co-líder del proyecto, participé en cada etapa: desde la conceptualización de la experiencia hasta la dirección de arte y la producción de la voz en off del sistema de onboarding.</p>
+        <p class="planifinz-desc" data-lang="pt">App financeiro desenvolvido para simplificar a gestão do dinheiro. Como co-líder do projeto, participei de cada etapa: desde a concepção da experiência até a direção de arte e a produção da locução do sistema de onboarding.</p>
+        <div class="roles-list">
+          <div class="role-item">
+            <span class="role-icon">🎨</span>
+            <div class="role-text">
+              <h4 data-lang="es">Diseñadora UI/UX</h4>
+              <h4 data-lang="pt">Designer UI/UX</h4>
+              <p data-lang="es">Flujos, wireframes, sistema de diseño y prototipo interactivo</p>
+              <p data-lang="pt">Fluxos, wireframes, sistema de design e protótipo interativo</p>
+            </div>
+          </div>
+          <div class="role-item">
+            <span class="role-icon">📐</span>
+            <div class="role-text">
+              <h4 data-lang="es">Diagramadora</h4>
+              <h4 data-lang="pt">Diagramadora</h4>
+              <p data-lang="es">Arquitectura de información y diagramación de pantallas</p>
+              <p data-lang="pt">Arquitetura de informação e diagramação de telas</p>
+            </div>
+          </div>
+          <div class="role-item">
+            <span class="role-icon">🎙️</span>
+            <div class="role-text">
+              <h4 data-lang="es">Voz en Off</h4>
+              <h4 data-lang="pt">Locução</h4>
+              <p data-lang="es">Locución del sistema de onboarding del producto</p>
+              <p data-lang="pt">Locução do sistema de onboarding do produto</p>
+            </div>
+          </div>
+          <div class="role-item">
+            <span class="role-icon">🚀</span>
+            <div class="role-text">
+              <h4 data-lang="es">Co-líder</h4>
+              <h4 data-lang="pt">Co-líder</h4>
+              <p data-lang="es">Toma de decisiones estratégicas y de diseño del equipo</p>
+              <p data-lang="pt">Tomada de decisões estratégicas e de design da equipe</p>
+            </div>
+          </div>
+        </div>
+        <a href="#contacto" class="btn-primary" data-lang="es">Ver caso de estudio →</a>
+        <a href="#contacto" class="btn-primary" data-lang="pt">Ver case de estudo →</a>
+      </div>
+      <div class="planifinz-screens fade-in">
+        <div class="mockup-wrap">
+          <div class="mockup-side mockup-left">
+            <img src="images/planifinz-pantalla2.png" alt="PlaniFinz pantalla secundaria"/>
+          </div>
+          <div class="mockup-main">
+            <img src="images/planifinz-pantalla1.png" alt="PlaniFinz pantalla principal"/>
+          </div>
+          <div class="mockup-side mockup-right">
+            <img src="images/planifinz-pantalla3.png" alt="PlaniFinz pantalla terciaria"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+
+<!-- BRANDING -->
+<section id="branding">
+  <div class="section-inner" style="position:relative;">
+    <div class="project-num">02</div>
+    <div class="section-label" data-lang="es">Branding & Diseño</div>
+    <div class="section-label" data-lang="pt">Branding & Design</div>
+    <div class="branding-intro fade-in">
+      <h2 class="section-title" data-lang="es">Identidades que <em>hablan</em></h2>
+      <h2 class="section-title" data-lang="pt">Identidades que <em>falam</em></h2>
+      <p data-lang="es">Cada marca tiene su propia voz. Mi proceso parte del concepto y la estrategia para llegar a una identidad visual auténtica, coherente y memorable.</p>
+      <p data-lang="pt">Cada marca tem sua própria voz. Meu processo parte do conceito e da estratégia para chegar a uma identidade visual autêntica, coerente e memorável.</p>
+    </div>
+    <div class="branding-grid">
+      <div class="brand-card fade-in" onclick="openLightbox('images/identidad-estilista-groomer.png')">
+        <div class="brand-card-img">
+          <img src="images/logo-estilista-canino.png" alt="Logo Estilista Canino"/>
+        </div>
+        <div class="brand-card-body">
+          <div class="brand-card-cat" data-lang="es">Identidad visual</div>
+          <div class="brand-card-cat" data-lang="pt">Identidade visual</div>
+          <div class="brand-card-title" data-lang="es">Estilista Canino</div>
+          <div class="brand-card-title" data-lang="pt">Estilista Canino</div>
+          <div class="brand-card-desc" data-lang="es">Logo para servicio de estética y cuidado de mascotas. Concepto basado en ternura y confianza.</div>
+          <div class="brand-card-desc" data-lang="pt">Logo para serviço de estética e cuidado de pets. Conceito baseado em ternura e confiança.</div>
+        </div>
+      </div>
+      <div class="brand-card fade-in" onclick="openLightbox('images/qhaquy-identidad.png')">
+        <div class="brand-card-img">
+          <img src="images/logo-masajista.png" alt="Logo Masajista"/>
+        </div>
+        <div class="brand-card-body">
+          <div class="brand-card-cat" data-lang="es">Identidad visual</div>
+          <div class="brand-card-cat" data-lang="pt">Identidade visual</div>
+          <div class="brand-card-title" data-lang="es">Masajista</div>
+          <div class="brand-card-title" data-lang="pt">Massoterapeuta</div>
+          <div class="brand-card-desc" data-lang="es">Identidad para profesional del bienestar. Diseño minimalista que transmite calma y equilibrio.</div>
+          <div class="brand-card-desc" data-lang="pt">Identidade para profissional do bem-estar. Design minimalista que transmite calma e equilíbrio.</div>
+        </div>
+      </div>
+      <div class="brand-card fade-in" onclick="openLightbox('images/mockup-tarjeta.jpg')">
+        <div class="brand-card-img">
+          <img src="images/mockup-tarjeta.jpg" alt="Tarjeta Groomer"/>
+        </div>
+        <div class="brand-card-body">
+          <div class="brand-card-cat" data-lang="es">Diseño editorial</div>
+          <div class="brand-card-cat" data-lang="pt">Design editorial</div>
+          <div class="brand-card-title" data-lang="es">Tarjeta Groomer</div>
+          <div class="brand-card-title" data-lang="pt">Cartão Groomer</div>
+          <div class="brand-card-desc" data-lang="es">Diseño y diagramación de tarjeta de presentación para servicio de grooming canino profesional.</div>
+          <div class="brand-card-desc" data-lang="pt">Design e diagramação de cartão de visita para serviço de grooming canino profissional.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+
+<!-- ILUSTRACIONES -->
+<section id="ilustraciones">
+  <div class="section-inner" style="position:relative;">
+    <div class="project-num">03</div>
+    <div class="section-label" data-lang="es">Arte & Ilustración</div>
+    <div class="section-label" data-lang="pt">Arte & Ilustração</div>
+    <div class="fade-in">
+      <h2 class="section-title" data-lang="es">El arte que <em>habita</em><br/>mis manos</h2>
+      <h2 class="section-title" data-lang="pt">A arte que <em>habita</em><br/>minhas mãos</h2>
+    </div>
+    <div class="tabs fade-in">
+      <button class="tab-btn active" onclick="switchTab('digital',this)" data-lang="es">Ilustración Digital</button>
+      <button class="tab-btn active" onclick="switchTab('digital',this)" data-lang="pt">Ilustração Digital</button>
+      <button class="tab-btn" onclick="switchTab('tradicional',this)" data-lang="es">Acrílico Tradicional</button>
+      <button class="tab-btn" onclick="switchTab('tradicional',this)" data-lang="pt">Acrílico Tradicional</button>
+    </div>
+
+    <div id="tab-digital" class="gallery-grid">
+      <div class="gallery-item large fade-in" onclick="openLightbox('images/ilustracion-digital1.jpg')">
+        <img src="images/ilustracion-digital1.jpg" alt="Ilustración digital 1"/>
+        <div class="gallery-overlay"><span data-lang="es">Ver ilustración →</span><span data-lang="pt">Ver ilustração →</span></div>
+      </div>
+      <div class="gallery-item fade-in" onclick="openLightbox('images/ilustracion-digital2.jpg')">
+        <img src="images/ilustracion-digital2.jpg" alt="Ilustración digital 2"/>
+        <div class="gallery-overlay"><span>Ver →</span></div>
+      </div>
+      <div class="gallery-item fade-in" onclick="openLightbox('images/ilustracion-digital3.jpg')">
+        <img src="images/ilustracion-digital3.jpg" alt="Ilustración digital 3"/>
+        <div class="gallery-overlay"><span>Ver →</span></div>
+      </div>
+      <div class="gallery-item fade-in" onclick="openLightbox('images/ilustracion-digital4.jpg')">
+        <img src="images/ilustracion-digital4.jpg" alt="Ilustración digital 4"/>
+        <div class="gallery-overlay"><span>Ver →</span></div>
+      </div>
+      <div class="gallery-item large fade-in" onclick="openLightbox('images/ilustracion-digital5.jpg')">
+        <img src="images/ilustracion-digital5.jpg" alt="Ilustración digital 5"/>
+        <div class="gallery-overlay"><span data-lang="es">Ver ilustración →</span><span data-lang="pt">Ver ilustração →</span></div>
+      </div>
+    </div>
+
+    <div id="tab-tradicional" class="gallery-grid" style="display:none;">
+      <div class="gallery-item large fade-in" onclick="openLightbox('images/ilustracion-acrilico-mascota1.png')">
+        <img src="images/ilustracion-acrilico-mascota1.png" alt="Retrato acrílico mascota 1"/>
+        <div class="gallery-overlay"><span data-lang="es">Ver retrato →</span><span data-lang="pt">Ver retrato →</span></div>
+      </div>
+      <div class="gallery-item fade-in" onclick="openLightbox('images/ilustracion-acrilico-mascota2.png')">
+        <img src="images/ilustracion-acrilico-mascota2.png" alt="Retrato acrílico mascota 2"/>
+        <div class="gallery-overlay"><span>Ver →</span></div>
+      </div>
+      <div class="gallery-item fade-in" onclick="openLightbox('images/ilustracion-acrilico-mascota3.png')">
+        <img src="images/ilustracion-acrilico-mascota3.png" alt="Retrato acrílico mascota 3"/>
+        <div class="gallery-overlay"><span>Ver →</span></div>
+      </div>
+      <div class="gallery-item large fade-in" onclick="openLightbox('images/ilustracion-acrilico-mascota4.jpg')">
+        <img src="images/ilustracion-acrilico-mascota4.jpg" alt="Retrato acrílico mascota 4"/>
+        <div class="gallery-overlay"><span data-lang="es">Ver retrato →</span><span data-lang="pt">Ver retrato →</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-img-wrap" onclick="event.stopPropagation()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="Vista ampliada"/>
+  </div>
+</div>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="fade-in">
+        <div class="section-label" data-lang="es">Contacto</div>
+        <div class="section-label" data-lang="pt">Contato</div>
+        <h2 class="contact-headline" data-lang="es">
+          Hagamos algo<br/><em>hermoso</em><br/>juntos.
+        </h2>
+        <h2 class="contact-headline" data-lang="pt">
+          Vamos fazer algo<br/><em>bonito</em><br/>juntos.
+        </h2>
+        <p class="contact-sub" data-lang="es">Estoy disponible para proyectos de diseño UI/UX, branding, ilustración y dirección de arte. Cuéntame tu idea.</p>
+        <p class="contact-sub" data-lang="pt">Estou disponível para projetos de design UI/UX, branding, ilustração e direção de arte. Conte-me sua ideia.</p>
+        <a href="mailto:graciapaz94@gmail.com" class="contact-email">✉️ graciapaz94@gmail.com</a>
+      </div>
+      <div class="social-links fade-in">
+        <a href="https://www.instagram.com/grapitadesign/" target="_blank" class="social-link">
+          <div class="social-icon ig">📸</div>
+          <div class="social-info"><h4>Instagram</h4><p>@grapitadesign</p></div>
+          <span class="social-arrow">→</span>
+        </a>
+        <a href="https://wa.me/5511967087978" target="_blank" class="social-link">
+          <div class="social-icon wa">💬</div>
+          <div class="social-info"><h4>WhatsApp</h4><p data-lang="es">Escríbeme directo</p><p data-lang="pt">Me chame direto</p></div>
+          <span class="social-arrow">→</span>
+        </a>
+        <a href="https://www.behance.net/graciapazt" target="_blank" class="social-link">
+          <div class="social-icon be">🎭</div>
+          <div class="social-info"><h4>Behance</h4><p>graciapazt</p></div>
+          <span class="social-arrow">→</span>
+        </a>
+        <a href="https://www.linkedin.com/in/graciapaz-tejada/" target="_blank" class="social-link">
+          <div class="social-icon li">💼</div>
+          <div class="social-info"><h4>LinkedIn</h4><p>graciapaz-tejada</p></div>
+          <span class="social-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Grapita Design.</div>
+  <div class="footer-copy" data-lang="es">© 2025 Grapita Design. Diseñado con ✦ y acrílico.</div>
+  <div class="footer-copy" data-lang="pt">© 2025 Grapita Design. Feito com ✦ e acrílico.</div>
+</footer>
+
+<script>
+// LANGUAGE SWITCH
+function setLang(lang) {
+  document.documentElement.classList.toggle('lang-pt', lang === 'pt');
+  document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+  document.getElementById('btn-pt').classList.toggle('active', lang === 'pt');
+}
+
+// TABS
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  // Activate both ES and PT buttons for the chosen tab
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    if (b.getAttribute('onclick').includes(`'${tab}'`)) b.classList.add('active');
+  });
+  document.getElementById('tab-digital').style.display = tab === 'digital' ? 'grid' : 'none';
+  document.getElementById('tab-tradicional').style.display = tab === 'tradicional' ? 'grid' : 'none';
+}
+
+// LIGHTBOX
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+
+// SCROLL ANIMATIONS
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
